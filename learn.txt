@@ -1,0 +1,6 @@
+1- Command To start in development mode
+npm run start:dev
+2- Command To Create new controller
+nest g controller users
+3- Command To Create new Module
+nest g module Admin
