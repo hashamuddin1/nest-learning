@@ -4,3 +4,9 @@ npm run start:dev
 nest g controller users
 3- Command To Create new Module
 nest g module Admin
+
+4- What is Dependency Injection?
+hamay bar bar new object krna parta hay jis se memory ziada hojati hay or performance down hojati
+hay. Iskay Liye dependency Injection use hota hay, aur provider may define krdetay hay.
+Phir jaha jaha us object ki need hoti hay provider waha provide krdeta hay. aur hamay just
+constructor may usko inject krna parta hay.
