@@ -1,6 +1,11 @@
+import { IsString, IsInt } from 'class-validator';
 export class Book {
-    id:number;
-    title:string;
-    author:string;
-    published:string;
+  @IsInt()
+  id: number;
+  @IsString()
+  title: string;
+  @IsString()
+  author: string;
+  @IsString()
+  published: string;
 }
