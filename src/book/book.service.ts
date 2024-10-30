@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './dto/create-book.dto';
 
@@ -30,6 +30,9 @@ export class BookService {
   }
 
   remove(id: number) {
+    if (id < 1) {
+      throw new BadRequestException('Id must be greater than 0');
+    }
     this.books = this.books.filter((currentBook) => currentBook.id != id);
     return `This action removes a #${id} book`;
   }
