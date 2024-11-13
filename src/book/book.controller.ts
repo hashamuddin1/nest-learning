@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { BookGuard } from './book.guard';
+import { BookInterceptor } from './book.interceptor';
 
 @Controller('book')
 export class BookController {
@@ -15,6 +16,7 @@ export class BookController {
   }
 
   @Get()
+  @UseInterceptors(BookInterceptor)
   findAll() {
     return this.bookService.findAll();
   }
