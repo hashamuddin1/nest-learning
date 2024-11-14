@@ -1,17 +1,28 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './dto/create-book.dto';
+import { Repository } from 'typeorm';
+import { BookEntity } from './entities/book.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BookService {
+  constructor(
+    @InjectRepository(BookEntity)
+    private readonly bookRepository: Repository<BookEntity>,
+  ) {}
   public books: Book[] = [];
-  create(createBookDto: Book) {
-    this.books.push(createBookDto);
-    return 'Book has been added';
+  async create(createBookDto: Book): Promise<BookEntity> {
+    let addBook: BookEntity = new BookEntity();
+    addBook.title = createBookDto.title;
+    addBook.author = createBookDto.author;
+    addBook.published = createBookDto.published;
+    const book = await this.bookRepository.save(addBook);
+    return book;
   }
 
-  findAll() {
-    return this.books;
+  async findAll() {
+    return await this.bookRepository.find();
   }
 
   findOne(id: number) {
