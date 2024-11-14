@@ -32,7 +32,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get<string>('USER'),
         password: configService.get<string>('PASSWORD'),
         database: configService.get<string>('DATABASE'),
-        entities: [],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
       inject: [ConfigService],
