@@ -53,14 +53,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private configService: ConfigService) {
-    // Logging environment variables
-    console.log('HOST:', this.configService.get<string>('HOST'));
-    console.log('PORT:', this.configService.get<number>('PORT'));
-    console.log('USERNAME:', this.configService.get<string>('USERNAME'));
-    console.log('PASSWORD:', this.configService.get<string>('PASSWORD'));
-    console.log('DATABASE:', this.configService.get<string>('DATABASE'));
-  }
+  constructor(private configService: ConfigService) {}
 
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(MainMiddleware).forRoutes('book');

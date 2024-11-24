@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './dto/create-book.dto';
 import { Repository } from 'typeorm';
@@ -25,8 +29,12 @@ export class BookService {
     return await this.bookRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+  async findOne(id: number): Promise<BookEntity> {
+    const book = await this.bookRepository.findOneBy({ id });
+    if (!book) {
+      throw new NotFoundException(`Book with ID #${id} not found`);
+    }
+    return book;
   }
 
   update(id: number, updateBookDto: UpdateBookDto) {
