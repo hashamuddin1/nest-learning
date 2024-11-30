@@ -37,22 +37,25 @@ export class BookService {
     return book;
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    let indexNumber = this.books.findIndex((currentBook) => {
-      return currentBook.id == id;
-    });
-    this.books[indexNumber] = {
-      ...this.books[indexNumber],
-      ...updateBookDto,
-    };
+  async update(id: number, updateBookDto: UpdateBookDto) {
+    const book = await this.bookRepository.findOneBy({ id });
+    if (!book) {
+      throw new NotFoundException(`Book with ID #${id} not found`);
+    }
+    await this.bookRepository.update(id, updateBookDto);
     return `This action updates a #${id} book`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     if (id < 1) {
       throw new BadRequestException('Id must be greater than 0');
     }
-    this.books = this.books.filter((currentBook) => currentBook.id != id);
+    console.log(id, 'id');
+    const book = await this.bookRepository.findOneBy({ id });
+    if (!book) {
+      throw new NotFoundException(`Book with ID #${id} not found`);
+    }
+    await this.bookRepository.delete({ id });
     return `This action removes a #${id} book`;
   }
 }

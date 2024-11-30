@@ -37,17 +37,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
-
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'localhost',
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'Hasham@147',
-    //   database: 'nestlearning',
-    //   entities: [],
-    //   synchronize: true,
-    // }),
   ],
   controllers: [AppController],
   providers: [AppService],
