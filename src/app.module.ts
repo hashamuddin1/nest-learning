@@ -9,6 +9,7 @@ import { BookModule } from './book/book.module';
 import { MainMiddleware } from './app.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [
@@ -37,6 +38,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
+
+    EmployeeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
