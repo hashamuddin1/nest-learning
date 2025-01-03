@@ -39,6 +39,16 @@ export class BookController {
 
   @Get()
   @UseInterceptors(BookInterceptor)
+  @ApiOperation({ summary: 'Retrieve all books' }) // Brief description of the operation
+  @ApiResponse({
+    status: 200,
+    description: 'A list of all books',
+    type: [BookEntity], // Specifies the expected response type (array of BookEntity)
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   findAll() {
     return this.bookService.findAll();
   }
