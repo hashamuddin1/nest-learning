@@ -4,13 +4,35 @@ import { Book } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { BookGuard } from './book.guard';
 import { BookInterceptor } from './book.interceptor';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiHeader,
+} from '@nestjs/swagger';
+import { BookEntity } from './entities/book.entity';
 
+@ApiTags('book')
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post()
-  @UseGuards(new BookGuard)
+  @UseGuards(new BookGuard())
+  @ApiOperation({ summary: 'Create a new book' })
+  @ApiResponse({
+    status: 201,
+    description: 'The book has been successfully created.',
+    type: BookEntity,
+  })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiBody({ type: Book, description: 'Payload for creating a book' })
+  @ApiHeader({
+    name: 'token', // Name of the header
+    description: 'A custom header required for this endpoint', // Header description
+    required: true, // Whether the header is mandatory
+  })
   create(@Body() createBookDto: Book) {
     return this.bookService.create(createBookDto);
   }
