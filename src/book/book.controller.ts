@@ -39,11 +39,11 @@ export class BookController {
 
   @Get()
   @UseInterceptors(BookInterceptor)
-  @ApiOperation({ summary: 'Retrieve all books' }) // Brief description of the operation
+  @ApiOperation({ summary: 'Retrieve all books' })
   @ApiResponse({
     status: 200,
     description: 'A list of all books',
-    type: [BookEntity], // Specifies the expected response type (array of BookEntity)
+    type: [BookEntity],
   })
   @ApiResponse({
     status: 500,
